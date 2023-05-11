@@ -33,6 +33,6 @@ public class ReadingListController {
         book.setReader(reader);
         readingListRepository.save(book);
 
-        return "redirect:/{reader}";
+        return "redirect:/readingList";
     }
 }
