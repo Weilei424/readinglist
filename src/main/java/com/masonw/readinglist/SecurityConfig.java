@@ -36,8 +36,7 @@ public class SecurityConfig {
         auth
                 .userDetailsService(new UserDetailsService() {
                     @Override
-                    public UserDetails loadUserByUsername(String username)
-                            throws UsernameNotFoundException {
+                    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                         UserDetails userDetails = readerRepository.getOne(username);
                         if (userDetails != null) {
                             return userDetails;
