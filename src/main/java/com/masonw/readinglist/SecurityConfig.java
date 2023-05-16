@@ -30,17 +30,21 @@ public class SecurityConfig {
                 .failureUrl("/login?error=true");
         return http.build();
     }
-    @Bean
-    public void config(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                UserDetails userDetails = readerRepository.getOne(username);
-                if (userDetails != null) {
-                    return userDetails;
-                }
-                throw new UsernameNotFoundException("User '" + username + "' not found.");
-            }
-        });
+
+    @Autowired
+    public void registerProvider(AuthenticationManagerBuilder auth) throws Exception{
+        auth
+                .userDetailsService(new UserDetailsService() {
+                    @Override
+                    public UserDetails loadUserByUsername(String username)
+                            throws UsernameNotFoundException {
+                        UserDetails userDetails = readerRepository.getOne(username);
+                        if (userDetails != null) {
+                            return userDetails;
+                        }
+                        throw new UsernameNotFoundException("User '" + username + "' not found.");
+                    }
+                });
     }
+
 }
